@@ -1,9 +1,12 @@
 import {Request, Response} from 'express';
+import { ContactHandler } from '../handlers/contact.handler';
 
 export class ContactRoutes {
-    
+
+    public contactHandler : ContactHandler = new ContactHandler();
+
     public routes(app): void {
-        
+       
         // Contact 
         app.route('/contact') 
         // GET endpoint 
@@ -14,7 +17,14 @@ export class ContactRoutes {
             })
         })        
         // POST endpoint
-        .post((req: Request, res: Response) => {   
+        .post(async(req: Request, res: Response) => { 
+            
+            try {
+                res.send(await this.contactHandler.create(req.body));
+            } catch(ex) {
+                res.send(ex);
+            }
+
         // Create new contact         
             res.status(200).send({
                 message: 'POST request successfulll!!!!'
