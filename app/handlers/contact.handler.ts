@@ -1,8 +1,7 @@
 import * as mongoose from 'mongoose';
-import { ContactSchema } from '../models/contact.model';
 import { Request, Response } from 'express';
+import Contact from '../models/contact.model';
 
-const Contact = mongoose.model('Contact', ContactSchema);
 
 export class ContactHandler {
 

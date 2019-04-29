@@ -2,7 +2,7 @@ import * as mongoose from 'mongoose';
 
 const Schema = mongoose.Schema;
 
-export const ContactSchema = new Schema ({
+const ContactSchema = new Schema ({
     firstName: {
         type: String,
         required: 'Enter a first name'
@@ -15,3 +15,7 @@ export const ContactSchema = new Schema ({
         type: String
     }
 });
+
+const Contact = mongoose.model('Contact', ContactSchema);
+
+export default Contact;
