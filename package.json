@@ -4,10 +4,9 @@
   "description": "https://itnext.io/building-restful-web-apis-with-node-js-express-mongodb-and-typescript-part-1-2-195bdaf129cf",
   "main": "index.js",
   "scripts": {
-    "build": "tsc",
-    "dev": "ts-node ./app/server.ts",        
-    "start": "nodemon ./dist/server.js",
-    "prod": "npm run build && npm run start"
+    "tsc": "tsc",
+    "dev": "ts-node-dev --respawn --transpileOnly ./app/server.ts",
+    "prod": "tsc && node ./dist/server.js"
   },
   "author": "",
   "license": "ISC",
@@ -17,5 +16,10 @@
     "express": "^4.16.4",
     "mongoose": "^5.5.3",
     "nodemon": "^1.18.11"
+  },
+  "devDependencies": {
+    "ts-node": "^8.1.0",
+    "ts-node-dev": "^1.0.0-pre.32",
+    "typescript": "^3.4.5"
   }
 }
