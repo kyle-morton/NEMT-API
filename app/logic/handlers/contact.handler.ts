@@ -1,20 +1,22 @@
-import * as mongoose from 'mongoose';
-import { Request, Response } from 'express';
 import Contact from '../models/contact.model';
+import { IContactRepository, ContactRepository } from '../../data/repositories/contact.repository';
+import { IContact } from 'logic/interfaces/contact.interface';
 
 
 export class ContactHandler {
+
+    private repo : IContactRepository; 
+
+    constructor() {
+        this.repo = new ContactRepository();
+    }
 
     /**
      * Create new contact document
      * @param body 
      */
     public async create (body: any) {
-
-        const newContact = new Contact(body);
-        await newContact.save();      
-        return newContact;
-
+        return await this.repo.create(body as IContact);
     }
 
     /**
@@ -22,7 +24,7 @@ export class ContactHandler {
      * @param filter 
      */
     public async get (filter: any) {
-        return await Contact.find(filter)
+        return await this.repo.get(filter);
     }
 
     /**
@@ -31,17 +33,11 @@ export class ContactHandler {
      * @param body 
      */
     public async update (id: string, body: any) {
-        return await Contact.findOneAndUpdate(
-            { _id: id },
-            body,
-            { new: true }
-        );
+        return await this.repo.update(id, body as IContact);
     }
 
     public async delete (id: string) {
-        return await Contact.findOneAndDelete(
-            { _id: id}
-        );
+        return await this.repo.delete(id);
     }
     
 };

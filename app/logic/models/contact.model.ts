@@ -1,4 +1,5 @@
 import * as mongoose from 'mongoose';
+import { IContact } from 'logic/interfaces/contact.interface';
 
 const Schema = mongoose.Schema;
 

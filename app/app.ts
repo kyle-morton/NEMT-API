@@ -1,7 +1,7 @@
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
 import * as mongoose from 'mongoose';
-import { Routes } from './routes/crm.router';
+import { Routes } from './api/routes/crm.router';
 
 class App {
     
