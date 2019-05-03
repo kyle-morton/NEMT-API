@@ -1,9 +1,17 @@
-import { Base } from './base.router';
-import { ContactController } from '../controllers/contact.controller';
+import { ContactController, IContactController } from '../controllers/contact.controller';
+import { TYPES } from '../../infrastructure/types.symbol';
+import { inject } from 'inversify';
+import "reflect-metadata";
 
-export class ContactRoutes extends Base {
+export class ContactRoutes {
 
-    private contactController : ContactController = new ContactController();
+    private contactController : IContactController
+
+    constructor ( @inject(TYPES.IContactController) contactController : IContactController ) 
+    { 
+        console.log('calling router constructor: ' + contactController);
+        this.contactController = contactController;
+    }
 
     public routes(app): void {
         

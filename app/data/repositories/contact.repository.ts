@@ -1,5 +1,7 @@
 import Contact from '../../logic/models/contact.model';
 import { IContact } from 'logic/interfaces/contact.interface';
+import { injectable } from 'inversify';
+import "reflect-metadata";
 
 
 export interface IContactRepository {
@@ -9,6 +11,7 @@ export interface IContactRepository {
     delete (id: string);
 }
 
+@injectable()
 export class ContactRepository implements IContactRepository {
     
     async create(contact: IContact) {

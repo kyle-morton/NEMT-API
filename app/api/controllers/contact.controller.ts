@@ -1,12 +1,29 @@
 import {Request, Response} from 'express';
-import { ContactHandler } from '../../logic/handlers/contact.handler';
+import { IContactHandler } from '../../logic/handlers/contact.handler';
+import { inject, injectable } from 'inversify';
+import { TYPES } from '../../infrastructure/types.symbol';
+import "reflect-metadata";
 
-export class ContactController {
+export interface IContactController {
+    get(req: Request, res: Response);
+    create (req: Request, res: Response);
+    getById (req: Request, res: Response);
+    update (req: Request, res: Response);
+    delete (req: Request, res: Response);
+}
 
-    private contactHandler : ContactHandler = new ContactHandler();
+@injectable()
+export class ContactController implements IContactController {
+
+    private contactHandler : IContactHandler;
+
+    constructor ( @inject(TYPES.IContactHandler) contactHandler : IContactHandler ) 
+    { 
+        this.contactHandler = contactHandler;
+        console.log('calling controller constructor...');
+    }
 
     public async get(req: Request, res: Response) {
-        console.log('this: ' + this);
         try {
             res.send(await this.contactHandler.get({}));
         }catch(ex) {

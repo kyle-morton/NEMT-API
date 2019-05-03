@@ -1,14 +1,26 @@
-import Contact from '../models/contact.model';
 import { IContactRepository, ContactRepository } from '../../data/repositories/contact.repository';
 import { IContact } from 'logic/interfaces/contact.interface';
+import { injectable, inject } from "inversify";
+import "reflect-metadata";
+import { TYPES } from '../../infrastructure/types.symbol';
 
 
-export class ContactHandler {
+export interface IContactHandler {
+    create (body: any);
+    get (filter: any);
+    update (id: string, body: any);
+    delete (id: string);
+}
+
+@injectable()
+export class ContactHandler implements IContactHandler {
 
     private repo : IContactRepository; 
 
-    constructor() {
-        this.repo = new ContactRepository();
+    constructor ( @inject(TYPES.IContactRepository) repo : IContactRepository ) 
+    { 
+        console.log('calling handler constructor...');
+        this.repo = repo; 
     }
 
     /**
